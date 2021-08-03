@@ -1,13 +1,7 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-
-# __name__ is the name of the module
-app = Flask(__name__)
-
-# This key was obtained by running
-# import secrets
-# secrets.token_hex(16)
-app.config['SECRET_KEY'] = '36cec8a6d52cdf30ef725e83a4d7ce07'
+from flask import render_template, url_for, flash, redirect
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
+from flaskblog import app
 
 posts = [
     {
@@ -24,7 +18,6 @@ posts = [
 
     }
 ]
-
 
 @app.route("/")
 @app.route("/home")
@@ -56,7 +49,3 @@ def login():
         else:
             flash(f'Login failed. Please check username and password.', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
