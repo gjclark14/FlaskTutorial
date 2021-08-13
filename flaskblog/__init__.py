@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -22,5 +20,11 @@ app.config['MAIL_USERNAME'] = ''
 app.config['MAIL_PASSWORD'] = ''
 mail = Mail(app)
 
-# the is imported here because the db needs to exist before importing
-from flaskblog import routes
+from flaskblog.users.routes import users
+from flaskblog.main.routes import main
+from flaskblog.posts.routes import posts
+
+app.register_blueprint(users)
+app.register_blueprint(main)
+app.register_blueprint(posts)
+
